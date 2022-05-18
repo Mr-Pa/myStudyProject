@@ -1,0 +1,11 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml
+/.idea/
+*.iml
