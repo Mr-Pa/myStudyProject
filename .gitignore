@@ -9,3 +9,4 @@
 /libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml
 /.idea/
 *.iml
+**/target/
