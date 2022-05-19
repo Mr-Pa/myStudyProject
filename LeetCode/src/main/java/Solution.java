@@ -100,6 +100,157 @@ public class Solution {
     }
 
     /**
+     * 10. 正则表达式匹配
+     * 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+     *
+     * '.' 匹配任意单个字符
+     * '*' 匹配零个或多个前面的那一个元素
+     * 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+     *
+     *  
+     * 示例 1：
+     *
+     * 输入：s = "aa", p = "a"
+     * 输出：false
+     * 解释："a" 无法匹配 "aa" 整个字符串。
+     * 示例 2:
+     *
+     * 输入：s = "aa", p = "a*"
+     * 输出：true
+     * 解释：因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'。因此，字符串 "aa" 可被视为 'a' 重复了一次。
+     * 示例 3：
+     *
+     * 输入：s = "ab", p = ".*"
+     * 输出：true
+     * 解释：".*" 表示可匹配零个或多个（'*'）任意字符（'.'）。
+     *  
+     *
+     * 提示：
+     *
+     * 1 <= s.length <= 20
+     * 1 <= p.length <= 30
+     * s 只包含从 a-z 的小写字母。
+     * p 只包含从 a-z 的小写字母，以及字符 . 和 *。
+     * 保证每次出现字符 * 时，前面都匹配到有效的字符
+     *
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode.cn/problems/regular-expression-matching
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     * @param s
+     * @param p
+     * @return
+     */
+    public boolean isMatch(String s, String p) {
+        // todo
+        return false;
+    }
+
+    /**
+     * 23. 合并K个升序链表
+     * 给你一个链表数组，每个链表都已经按升序排列。
+     *
+     * 请你将所有链表合并到一个升序链表中，返回合并后的链表。
+     *
+     *  
+     *
+     * 示例 1：
+     *
+     * 输入：lists = [[1,4,5],[1,3,4],[2,6]]
+     * 输出：[1,1,2,3,4,4,5,6]
+     * 解释：链表数组如下：
+     * [
+     *   1->4->5,
+     *   1->3->4,
+     *   2->6
+     * ]
+     * 将它们合并到一个有序链表中得到。
+     * 1->1->2->3->4->4->5->6
+     * 示例 2：
+     *
+     * 输入：lists = []
+     * 输出：[]
+     * 示例 3：
+     *
+     * 输入：lists = [[]]
+     * 输出：[]
+     *  
+     *
+     * 提示：
+     *
+     * k == lists.length
+     * 0 <= k <= 10^4
+     * 0 <= lists[i].length <= 500
+     * -10^4 <= lists[i][j] <= 10^4
+     * lists[i] 按 升序 排列
+     * lists[i].length 的总和不超过 10^4
+     *
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode.cn/problems/merge-k-sorted-lists
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0){
+            return null;
+        }
+        if (lists.length == 1){
+            return lists[0];
+        }
+
+        ListNode head = new ListNode(0);
+        ListNode lastNode = head;
+        boolean flag = true;
+        while (flag){
+            flag = false;
+            ListNode nextNode = new ListNode();
+            for (int i = 0; i < lists.length; i++) {
+                if (lists[i] != null){
+                    nextNode = lists[i];
+                    flag = true;
+                    break;
+                }
+            }
+            // 遍历结束，跳出循环
+            if (!flag) break;
+
+            //找下一个最小node
+            for (int i = 0; i < lists.length; i++) {
+                if (lists[i] != null && lists[i].val <= nextNode.val){
+                    nextNode = lists[i];
+                }
+            }
+            for (int i = 0; i < lists.length; i++) {
+                if (lists[i] == nextNode){
+                    lists[i] = nextNode.next;
+                }
+            }
+            lastNode.next = nextNode;
+            lastNode = nextNode;
+
+        }
+
+        return head.next;
+    }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    /**
      * 436. 寻找右区间
      * 给你一个区间数组 intervals ，其中 intervals[i] = [starti, endi] ，且每个 starti 都 不同 。
      * <p>
