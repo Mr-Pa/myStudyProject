@@ -1,16 +1,14 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Clay.Lin
  * @date 2022/5/19
  */
 public class Solution {
-    public static void main(String[] args) {
-        int[][] intervals = new int[][]{{3,4},{2,3},{1,2}};
-        System.out.println(findRightInterval(intervals));
-    }
-
 
     /**
      * 4. 寻找两个正序数组的中位数
@@ -102,40 +100,41 @@ public class Solution {
     /**
      * 10. 正则表达式匹配
      * 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
-     *
+     * <p>
      * '.' 匹配任意单个字符
      * '*' 匹配零个或多个前面的那一个元素
      * 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
-     *
+     * <p>
      *  
      * 示例 1：
-     *
+     * <p>
      * 输入：s = "aa", p = "a"
      * 输出：false
      * 解释："a" 无法匹配 "aa" 整个字符串。
      * 示例 2:
-     *
+     * <p>
      * 输入：s = "aa", p = "a*"
      * 输出：true
      * 解释：因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'。因此，字符串 "aa" 可被视为 'a' 重复了一次。
      * 示例 3：
-     *
+     * <p>
      * 输入：s = "ab", p = ".*"
      * 输出：true
      * 解释：".*" 表示可匹配零个或多个（'*'）任意字符（'.'）。
      *  
-     *
+     * <p>
      * 提示：
-     *
+     * <p>
      * 1 <= s.length <= 20
      * 1 <= p.length <= 30
      * s 只包含从 a-z 的小写字母。
      * p 只包含从 a-z 的小写字母，以及字符 . 和 *。
      * 保证每次出现字符 * 时，前面都匹配到有效的字符
-     *
+     * <p>
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode.cn/problems/regular-expression-matching
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     *
      * @param s
      * @param p
      * @return
@@ -148,64 +147,65 @@ public class Solution {
     /**
      * 23. 合并K个升序链表
      * 给你一个链表数组，每个链表都已经按升序排列。
-     *
+     * <p>
      * 请你将所有链表合并到一个升序链表中，返回合并后的链表。
-     *
+     * <p>
      *  
-     *
+     * <p>
      * 示例 1：
-     *
+     * <p>
      * 输入：lists = [[1,4,5],[1,3,4],[2,6]]
      * 输出：[1,1,2,3,4,4,5,6]
      * 解释：链表数组如下：
      * [
-     *   1->4->5,
-     *   1->3->4,
-     *   2->6
+     * 1->4->5,
+     * 1->3->4,
+     * 2->6
      * ]
      * 将它们合并到一个有序链表中得到。
      * 1->1->2->3->4->4->5->6
      * 示例 2：
-     *
+     * <p>
      * 输入：lists = []
      * 输出：[]
      * 示例 3：
-     *
+     * <p>
      * 输入：lists = [[]]
      * 输出：[]
      *  
-     *
+     * <p>
      * 提示：
-     *
+     * <p>
      * k == lists.length
      * 0 <= k <= 10^4
      * 0 <= lists[i].length <= 500
      * -10^4 <= lists[i][j] <= 10^4
      * lists[i] 按 升序 排列
      * lists[i].length 的总和不超过 10^4
-     *
+     * <p>
      * 来源：力扣（LeetCode）
      * 链接：https://leetcode.cn/problems/merge-k-sorted-lists
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     *
      * @param lists
      * @return
      */
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0){
+        if (lists == null || lists.length == 0) {
             return null;
         }
-        if (lists.length == 1){
+        if (lists.length == 1) {
             return lists[0];
         }
 
         ListNode head = new ListNode(0);
         ListNode lastNode = head;
         boolean flag = true;
-        while (flag){
+        while (flag) {
             flag = false;
             ListNode nextNode = new ListNode();
             for (int i = 0; i < lists.length; i++) {
-                if (lists[i] != null){
+                if (lists[i] != null) {
                     nextNode = lists[i];
                     flag = true;
                     break;
@@ -216,12 +216,12 @@ public class Solution {
 
             //找下一个最小node
             for (int i = 0; i < lists.length; i++) {
-                if (lists[i] != null && lists[i].val <= nextNode.val){
+                if (lists[i] != null && lists[i].val <= nextNode.val) {
                     nextNode = lists[i];
                 }
             }
             for (int i = 0; i < lists.length; i++) {
-                if (lists[i] == nextNode){
+                if (lists[i] == nextNode) {
                     lists[i] = nextNode.next;
                 }
             }
@@ -310,7 +310,7 @@ public class Solution {
             //获取大于end的最小start，可以用查找算法优化
             Integer minStart = null;
             for (int j = 0; j < sort.length; j++) {
-                if (sort[j] >= intervals[i][1]){
+                if (sort[j] >= intervals[i][1]) {
                     minStart = sort[j];
                     break;
                 }
@@ -362,6 +362,77 @@ public class Solution {
         }
         return count;
     }
+
+    /**
+     * 468. 验证IP地址
+     * 给定一个字符串 queryIP。如果是有效的 IPv4 地址，返回 "IPv4" ；如果是有效的 IPv6 地址，返回 "IPv6" ；如果不是上述类型的 IP 地址，返回 "Neither" 。
+     * <p>
+     * 有效的IPv4地址 是 “x1.x2.x3.x4” 形式的IP地址。 其中 0 <= xi <= 255 且 xi 不能包含 前导零。例如: “192.168.1.1” 、 “192.168.1.0” 为有效IPv4地址， “192.168.01.1” 为无效IPv4地址; “192.168.1.00” 、 “192.168@1.1” 为无效IPv4地址。
+     * <p>
+     * 一个有效的IPv6地址 是一个格式为“x1:x2:x3:x4:x5:x6:x7:x8” 的IP地址，其中:
+     * <p>
+     * 1 <= xi.length <= 4
+     * xi 是一个 十六进制字符串 ，可以包含数字、小写英文字母( 'a' 到 'f' )和大写英文字母( 'A' 到 'F' )。
+     * 在 xi 中允许前导零。
+     * 例如 "2001:0db8:85a3:0000:0000:8a2e:0370:7334" 和 "2001:db8:85a3:0:0:8A2E:0370:7334" 是有效的 IPv6 地址，而 "2001:0db8:85a3::8A2E:037j:7334" 和 "02001:0db8:85a3:0000:0000:8a2e:0370:7334" 是无效的 IPv6 地址。
+     * <p>
+     *  
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入：queryIP = "172.16.254.1"
+     * 输出："IPv4"
+     * 解释：有效的 IPv4 地址，返回 "IPv4"
+     * 示例 2：
+     * <p>
+     * 输入：queryIP = "2001:0db8:85a3:0:0:8A2E:0370:7334"
+     * 输出："IPv6"
+     * 解释：有效的 IPv6 地址，返回 "IPv6"
+     * 示例 3：
+     * <p>
+     * 输入：queryIP = "256.256.256.256"
+     * 输出："Neither"
+     * 解释：既不是 IPv4 地址，又不是 IPv6 地址
+     *  
+     * <p>
+     * 提示：
+     * <p>
+     * queryIP 仅由英文字母，数字，字符 '.' 和 ':' 组成。
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode.cn/problems/validate-ip-address
+     *
+     * @param queryIP
+     * @return
+     */
+    public String validIPAddress(String queryIP) {
+
+        // 正则表达式硬解
+        String result = validIPAddress_v1(queryIP);
+        return result;
+    }
+
+    public String validIPAddress_v1(String queryIP) {
+        if (queryIP == null) {
+            return "Neither";
+        }
+
+        String regex0 = "(\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])";
+        String regexIPv4 = regex0 + "(\\." + regex0 + "){3}";
+        String regex1 = "([\\da-fA-F]{1,4})";
+        String regexIPv6 = regex1 + "(:" + regex1 + "){7}";
+
+        String result = "Neither";
+        if (queryIP.matches(regexIPv4)) {
+            result = "IPv4";
+        } else if (queryIP.matches(regexIPv6)) {
+            result = "IPv6";
+        }
+        return result;
+    }
+
+
+
 
 
 }
