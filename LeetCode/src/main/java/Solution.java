@@ -1,8 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 /**
  * @author Clay.Lin
@@ -431,8 +427,66 @@ public class Solution {
         return result;
     }
 
+    /**
+     * 508. 出现次数最多的子树元素和
+     * 给你一个二叉树的根结点 root ，请返回出现次数最多的子树元素和。如果有多个元素出现的次数相同，返回所有出现次数最多的子树元素和（不限顺序）。
+     * <p>
+     * 一个结点的 「子树元素和」 定义为以该结点为根的二叉树上所有结点的元素之和（包括结点本身）。
+     * <p>
+     *  
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode.cn/problems/most-frequent-subtree-sum
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     *
+     * @param root
+     * @return
+     */
+    public static int[] findFrequentTreeSum(TreeNode root) {
+        Map<Integer, Integer> map = new HashMap<>();
+        sumTree(map, root);
+        Set<Map.Entry<Integer, Integer>> set =  map.entrySet();
+        int max = 0;
+        for (Map.Entry<Integer, Integer> integerIntegerEntry : set) {
+            if (integerIntegerEntry.getValue() > max) max = integerIntegerEntry.getValue();
+        }
+        List<Integer> list = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> integerIntegerEntry : set) {
+            if (integerIntegerEntry.getValue() == max) list.add(integerIntegerEntry.getKey());
+        }
+        int[] result = new int[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i);
+        }
+        return result;
+    }
 
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public static int sumTree(Map<Integer, Integer> map, TreeNode treeNode) {
+        if (treeNode == null) return 0;
+        int result = treeNode.val + sumTree(map, treeNode.left) + sumTree(map, treeNode.right);
+        Integer count = map.get(result);
+        map.put(result, count == null ? 1 : count + 1);
+        return result;
+    }
 
 
 }
